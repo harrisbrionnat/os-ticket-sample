@@ -84,4 +84,12 @@ This tutorial outlines the prerequisites and installation of the open-source hel
    ![HeidiSQL Database Setup](https://imgur.com/xo5ksCT.png)
 
 9. **Finalizing osTicket Installation**:
-   - Back in your browser, continue
+  - Return to your browser to continue with the osTicket installation.
+  - Under **Database Settings**, enter the following:
+  - **Database**: osTicket
+  - **Username**: root
+  - **Password**: root
+
+- Click **Install**. You are now ready to use osTicket!
+
+![Final Step of Installation](https://imgur.com/fdc6NGZ.png)
