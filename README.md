@@ -2,8 +2,8 @@
     <img src="https://i.imgur.com/Clzj7Xs.png" alt="osTicket logo"/>
 </p>
 
-# osTicket - Prerequisites and Installation
-This tutorial outlines the prerequisites and installation of the open-source help desk ticketing system osTicket.
+# osTicket - Post-Install Configuration
+This tutorial outlines the post-install configuration of the open-source help desk ticketing system osTicket.
 
 ## Environments and Technologies Used
 - Microsoft Azure (Virtual Machines/Compute)
@@ -13,83 +13,80 @@ This tutorial outlines the prerequisites and installation of the open-source hel
 ## Operating Systems Used 
 - Windows 10 (21H2)
 
-## List of Prerequisites 
-*(Best to download prior to performing the steps below)*
-- MySQL Database
-- PHP installer
-- HeidiSQL
-- osTicket installer
-- PHP Manager for IIS
-- Microsoft Visual C++ Redistributable
-- URL Rewrite Module
+## Post-Install Configuration Objectives
+This tutorial covers the following login URLs for osTicket:
+- Admin/Analysts: [http://localhost/osTicket/scp/login.php](http://localhost/osTicket/scp/login.php)
+- End-Users: [http://localhost/osTicket](http://localhost/osTicket)
 
-## Installation Steps
+### Topics Covered:
+- Agent vs. Admin Panel
+- Roles
+- Departments
+- Teams
+- Agents
+- Users
+- SLAs
+- Help Desk Topics
 
-1. **Enable IIS (Internet Information Services)**:
-   - Go to **Control Panel** → **Programs and Features** → Click **Uninstall a program**.
-   - On the left, click **Turn Windows features on or off**.
-   - Check the box for **Internet Information Services** and expand it. 
-     - Expand **World Wide Web Services** → **Application Development Features**, and check **CGI**.
-   
-   ![Enable IIS](https://imgur.com/xJNztgn.png)
+## Configuration Steps
 
-2. **Install PHP Manager and the Rewrite Module**:
-   - Create a directory: `C:\PHP`.
-   - Unzip the PHP Manager into the `C:\PHP` folder.
-   - Install Microsoft Visual C++ Redistributable.
-   
-   ![PHP Manager Installation](https://imgur.com/gKtChVi.png)
+### 1. Roles
+Roles allow us to assign permissions to specific agents. There are default roles: 
+- All Access
+- Expanded Access
+- Limited Access
+- View Only
 
-3. **Install MySQL Database**:
-   - Choose 'Typical' for the setup type during installation.
-   - Ensure to check the box to launch the MySQL configuration wizard, and select 'Typical Configuration'.
-   - When prompted for security options, type 'root' for the password (not best practice for real-world use, but simplified for this demo).
-   
-   ![MySQL Installation](https://imgur.com/yyhHq2h.png)
+To add a new role:
+- Navigate to the **Admin Panel** > **Agents** > **Roles**.
+- Click **Add New Role** and type the name of the role (e.g., 'Super Admin').
+- Assign all permissions to this role and click **Add**.
 
-4. **Register PHP within IIS**:
-   - Open IIS by right-clicking the Start menu and selecting **Run as Administrator**.
-   - Open the PHP Manager, click **Register a new PHP version** and browse to the PHP executable in the C: drive.
-   - After clicking **OK**, stop and restart the web server via the IIS Manager.
+![Add New Role](https://imgur.com/k9AP5jn.png)
 
-   ![Register PHP](https://imgur.com/skyrpuZ.png)
+![Role Configuration](https://imgur.com/02r7lNV.png)
 
-5. **Install osTicket**:
-   - Unzip the osTicket zip folder and copy the 'upload' folder to `C:\inetpub\wwwroot`.
-   - Rename the copied folder to 'osTicket'.
-   - Restart the server. In IIS Manager, navigate to **Sites** → **Default Web Site** → click on 'osTicket' → Click on **Browse 80**.
-   - Enable the required PHP extensions: `php_imap.dll`, `php_intl.dll`, and `php_opcache.dll` by going to **Sites** → **Default Web Site** → **osTicket** → click on **PHP Manager**.
+### 2. Departments
+Departments allow ticket visibility to specific areas within an organization, such as Maintenance or IT Support. To create a new department:
+- In the **Admin Panel**, go to **Agents** > **Departments**.
+- Click **Add New Department** and enter the department name (e.g., 'Sales').
+- Configure additional options as desired.
 
-   ![osTicket Install](https://imgur.com/QuQvAx0.png)
+![Add Department](https://imgur.com/BL1h6Xx.png)
 
-6. **Configure osTicket**:
-   - Rename `ost-sampleconfig.php` to `ost-config.php` in `C:\inetpub\wwwroot\osTicket\include`.
-   - Set permissions on this file:
-     - Right-click the file → **Properties** → **Security** → **Advanced** → **Disable inheritance**, and remove all inherited permissions.
-     - Click **Add** → **Select a Principal**. Type `Everyone` and set **Full Control** permissions.
+![Department Configuration](https://imgur.com/ziWcbpX.png)
 
-   ![Set Permissions](https://imgur.com/hqDOf2w.png)
-   ![Permissions Window](https://imgur.com/u2G4nbQ.png)
+### 3. Teams
+Teams allow agents from different departments to collaborate on specific tickets. To create a new team:
+- Navigate to **Agents** > **Teams** > **Add New Team**.
+- Name the team (e.g., 'Online Banking').
 
-7. **Complete osTicket Installation**:
-   - In your browser, click **Continue** and provide a help desk name and default email. Set up your primary administrator account credentials.
+![Add Team](https://i.imgur.com/DJmEXEB.png)
 
-   ![osTicket Setup](https://imgur.com/xo5ksCT.png)
+### 4. Agents
+To add new agents who will handle tickets:
+- Go to the **Admin Panel** > **Agents** > **Add New Agent**.
+- Enter the agent's name (e.g., 'Timmy Jones').
+- Assign a role and department, and set a password.
 
-8. **Installing HeidiSQL**:
-   - After installation, launch HeidiSQL and click **New**.
-   - Set both user and password to `root`, and then click **Open**.
-   - Right-click on 'Unnamed' and select **Create New** → **Database**. The database name will be `osTicket`.
+![Agent Configuration](https://i.imgur.com/DJmEXEB.png)
 
-   ![HeidiSQL Database Setup](https://imgur.com/xo5ksCT.png)
+### 5. Users
+Users are customers submitting tickets. To create a new user:
+- Navigate to the **Admin Panel** > **Users** > **Add User**.
+- Enter the user's email address and full name (e.g., 'Bill Harris').
 
-9. **Finalizing osTicket Installation**:
-  - Return to your browser to continue with the osTicket installation.
-  - Under **Database Settings**, enter the following:
-  - **Database**: osTicket
-  - **Username**: root
-  - **Password**: root
+![User Configuration](https://i.imgur.com/DJmEXEB.png)
 
-- Click **Install**. You are now ready to use osTicket!
+### 6. SLAs (Service Level Agreements)
+SLAs define response and resolution times for tickets based on certain criteria. To configure an SLA:
+- Go to the **Admin Panel** > **Manage** > **SLA**.
+- Click **Add New SLA Plan**, name it (e.g., 'Sev-A'), set the grace period and schedule, and click **Add Plan**.
 
-![Final Step of Installation](https://imgur.com/fdc6NGZ.png)
+![SLA Configuration](https://i.imgur.com/DJmEXEB.png)
+
+### 7. Help Topics
+Help Topics categorize help desk ticket issues. To configure:
+- Go to **Admin Panel** > **Manage** > **Help Topics**.
+- Click **Add New Help Topic**, set the topic name (e.g., 'Password Reset'), and select an appropriate parent topic.
+
